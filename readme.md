@@ -21,6 +21,7 @@ Benefits compared to lower level core:
   - [Basic](#basic)
   - [Dynamic Values](#dynamic-values)
   - [Theming](#theming)
+  - [Hot Module Replacement](#hmr)
   - [Server-side rendering](#server-side-rendering)
   - [React tree traversing](#react-tree-traversing)
   - [Reuse styles in different components](#reuse-styles-in-different-components)
@@ -283,6 +284,10 @@ const App = () => (
   <OtherLibraryThemeProvider>
 )
 ```
+
+### Hot Module Replacement
+
+To add support for Hot Reloading the styles, you will need to add the [react-jss-hmr](https://github.com/felthy/react-jss-hmr) Webpack Plugin. How to setup the plugin is described there.
 
 ### Server-side rendering
 
