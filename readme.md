@@ -287,9 +287,9 @@ const App = () => (
 
 ### Hot Module Replacement
 
-To add support for Hot Reloading the styles, you will need to add the [react-jss-hmr](https://github.com/felthy/react-jss-hmr) Webpack Plugin. 
+To add support for Hot Reloading the styles, you will need to add the [react-jss-hmr](https://github.com/cssinjs/react-jss-hmr) Webpack Plugin. 
 
-How to correctly setup the plugin is described in the [readme](https://github.com/felthy/react-jss-hmr) .
+How to correctly setup the plugin is described in the [readme](https://github.com/cssinjs/react-jss-hmr) .
 
 ### Server-side rendering
 
