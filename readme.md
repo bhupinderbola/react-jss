@@ -21,7 +21,7 @@ Benefits compared to lower level core:
   - [Basic](#basic)
   - [Dynamic Values](#dynamic-values)
   - [Theming](#theming)
-  - [Hot Module Replacement](#hmr)
+  - [Hot Module Replacement](#hot-module-replacement)
   - [Server-side rendering](#server-side-rendering)
   - [React tree traversing](#react-tree-traversing)
   - [Reuse styles in different components](#reuse-styles-in-different-components)
