@@ -121,7 +121,7 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
 
     componentDidUpdate(prevProps, prevState) {
       // We remove previous dynamicSheet only after new one was created to avoid FOUC.
-      if (prevState.dynamicSheet !== this.state.dynamicSheet) {
+      if (prevState.dynamicSheet !== this.state.dynamicSheet && prevState.dynamicSheet) {
         this.jss.removeStyleSheet(prevState.dynamicSheet)
       }
     }
