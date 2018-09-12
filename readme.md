@@ -392,15 +392,6 @@ const StyledComponent = injectSheet({})(InnerComponent)
 <StyledComponent innerRef={(ref) => {console.log(ref)}} />
 ```
 
-If you are using React 16.3 or higher we also support forwarding the ref to the InnerComponent.
-
-```es6
-const InnerComponent = () => null
-const StyledComponent = injectSheet({})(InnerComponent)
-
-<StyledComponent ref={(ref) => {console.log(ref)}} />
-```
-
 ### Custom setup
 
 If you want to specify a JSS version and plugins to use, you should create your [own JSS instance](https://github.com/cssinjs/jss/blob/master/docs/js-api.md#create-an-own-jss-instance), [setup plugins](https://github.com/cssinjs/jss/blob/master/docs/setup.md#setup-with-plugins) and pass it to `JssProvider`.
