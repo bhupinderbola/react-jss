@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import defaultTheming from 'theming'
+import shallowEqual from 'shallowequal'
+import get from 'lodash.get'
 import jss, {getDynamicStyles, SheetsManager} from './jss'
 import compose from './compose'
 import getDisplayName from './getDisplayName'
@@ -64,7 +66,7 @@ let managersCounter = 0
  */
 export default (stylesOrCreator, InnerComponent, options = {}) => {
   const isThemingEnabled = typeof stylesOrCreator === 'function'
-  const {theming = defaultTheming, inject, jss: optionsJss, ...sheetOptions} = options
+  const {theming = defaultTheming, inject, jss: optionsJss, stylesRoot, ...sheetOptions} = options
   const injectMap = inject ? toMap(inject) : defaultInjectProps
   const {themeListener} = theming
   const displayName = getDisplayName(InnerComponent)
@@ -75,6 +77,10 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
   const defaultProps = {...InnerComponent.defaultProps}
   delete defaultProps.classes
 
+  function getStylesToUpdate(styles) {
+    return stylesRoot ? get(styles, stylesRoot) || {} : styles
+  }
+
   class Jss extends Component {
     static displayName = `Jss(${displayName})`
     static InnerComponent = InnerComponent
@@ -82,9 +88,12 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
       ...contextTypes,
       ...(isThemingEnabled && themeListener.contextTypes)
     }
+    /* eslint-disable no-undef */
     static propTypes = {
       innerRef: PropTypes.func
     }
+    /* eslint-enable no-undef */
+
     static defaultProps = defaultProps
 
     constructor(props, context) {
@@ -107,7 +116,11 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
     componentWillReceiveProps(nextProps, nextContext) {
       this.context = nextContext
       const {dynamicSheet} = this.state
-      if (dynamicSheet) dynamicSheet.update(nextProps)
+      if (dynamicSheet) {
+        if (!stylesRoot || !shallowEqual(nextProps, this.props)) {
+          dynamicSheet.update(getStylesToUpdate(nextProps))
+        }
+      }
     }
 
     componentWillUpdate(nextProps, nextState) {
@@ -137,7 +150,9 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
       }
     }
 
+    /* eslint-disable no-undef */
     setTheme = theme => this.setState({theme})
+    /* eslint-disable no-undef */
 
     createState({theme, dynamicSheet}, {classes: userClasses}) {
       const contextSheetOptions = this.context[ns.sheetOptions]
@@ -205,7 +220,7 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
       if (registry) registry.add(staticSheet)
 
       if (dynamicSheet) {
-        dynamicSheet.update(this.props).attach()
+        dynamicSheet.update(getStylesToUpdate(this.props)).attach()
         if (registry) registry.add(dynamicSheet)
       }
     }

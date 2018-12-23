@@ -8,6 +8,7 @@ function loadModules() {
   window.jss = jssModule.default
   window.sheets = jssModule.sheets
   window.createJss = jssModule.create
+  window.StyleSheet = require('jss/lib/StyleSheet').default
 
   const reactJssModule = require('../src')
   window.injectSheet = reactJssModule.default
