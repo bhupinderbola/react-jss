@@ -19,6 +19,7 @@
     "test": "cross-env NODE_ENV=test karma start --single-run ",
     "test:watch": "cross-env NODE_ENV=test karma start",
     "prepublishOnly": "npm run all",
+    "prepare": "npm run all",
     "size": "size-limit 22KB dist/react-jss.js",
     "preversion": "npm run size",
     "format": "prettier --write *.{js,md,json} {src,tests}/**/*.{js,md,json}"
