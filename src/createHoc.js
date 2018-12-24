@@ -200,11 +200,16 @@ export default (stylesOrCreator, InnerComponent, options = {}) => {
             dynamicSheet.classes
           )
         : staticSheet.classes
-      const classes = {
+      const componentClasses = {
         ...defaultClasses,
-        ...jssClasses,
-        ...userClasses
+        ...jssClasses
       }
+      const classes = userClasses
+        ? compose(
+            componentClasses,
+            userClasses
+          )
+        : componentClasses
 
       return {theme, dynamicSheet, classes}
     }
